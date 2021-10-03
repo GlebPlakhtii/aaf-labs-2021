@@ -1,30 +1,27 @@
 #include "R_Tree.h"
-#include <list>
+#include "Rect.h"
 
 using namespace std;
 
 
-R_Tree::R_Tree(int t)
+R_Tree::R_Tree()
 {
-	this->t = t;
-	Node root;
-
+	R_Tree::Node::Max_entries = 5;
+	R_Tree::Node::Min_entries = 2;
+	root = new Node(true,true);
 }
 
 
 
-R_Tree::Node::Node()
+
+
+R_Tree::Node::Node(bool is_root, bool is_leaf)
 {
-	list<Node*> pointers;
-	list<pair<pair<int,int>,pair<int,int>>> rect;
+	this->is_root = is_root;
+	this->is_leaf = is_leaf;
 }
 
-void Set_t(int t)
-{
-	
-	Node::T = t;
-	Node::Max_entries = 2 * T - 1;
-	Node::Min_entries = T - 1;
 
-	
-}
+
+
+
