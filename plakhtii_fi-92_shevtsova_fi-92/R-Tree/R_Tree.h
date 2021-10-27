@@ -1,40 +1,80 @@
 #pragma once
-#include <list>
 #include "Rect.h"
+#include <vector>
+#include <string>
+
+
+using namespace std;
+
+
 
 class R_Tree
 {
-private:
-	
+public:
+	R_Tree();
+	void incert(Rect rect);
+	vector<Rect> search(Rect rect);
+	void print_tree();
+	int get_height();
+	void test();
+
 
 	class Node {
 	public:
 		bool is_leaf;
 		bool is_root;
-		static int Max_entries;
-		static int Min_entries;
 		Node* parent;
-		list<Node*> childs;
-		list<Rect> rect;
+		vector<Node*> children;
+		vector<Rect> data;
+		Rect rect;
 		Node(bool is_root, bool is_leaf);
-
+		bool is_full();
+		void insert(Rect rect);
+		bool _is_fewer_m();
+		void _print_tree(string t, bool last);
+		void height(int& res);
+	
 	};
 
+
+
+
+private:
+	
+
 	Node* root;
+	static const int Max_entries = 5;
+	static const int Min_entries = 2;
 
-public:
-	R_Tree();
-	Node* search(Rect rect);
-	void insert(pair<int,int> point);
-	Node* choose_leaf();
-	void adjust_tree(Node* L);
+	void _search(Rect rect, Node* T, vector<Rect>& result);
+	void _insert(Rect rect);
+	Node* _choose_leaf(Rect rect);
+	void _adjust_tree(Node* L1,Node* L2);
+	Node* _choose_subtree(Node* N, Rect rect);
+	void _delete(Rect rect);
+	Node** _split_node(Node* N);
+	void _find_leaf (Node* N, Rect rect, Node* result);
+	Rect adjust_rect(R_Tree::Node* N);
+	void _condense_tree(Node* N);
+	Rect* _pick_seeds_leaf(vector<Rect> data);
+	Node** _pick_seeds(vector<Node*> children);
+	void _pick_next(vector<Node*>& N, vector<Node*>& G1, vector<Node*>& G2);
+	void _pick_next_leaf(vector<Rect>& R, vector<Rect>& S1, vector<Rect>& S2);
+	double _resulting_area(vector<Node*> G, Node* N);
+	double _resulting_area(vector<Rect> S, Rect N);
+	double _area(vector<Node*> N);
+	
+	
+	
+	
 
 
 	
 
 
 
-	
+
+
 
 
 };
