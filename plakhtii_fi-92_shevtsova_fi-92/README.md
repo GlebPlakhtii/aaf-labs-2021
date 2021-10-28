@@ -16,18 +16,18 @@
 
 
 # Visualisation R-Tree structure and colmpile R-Tree as python library:
-*compilation
-to compile R-Tree as python library you shoukd **for Linux**:
-1)crate directory **build** in R_tree_to_compile folder
-**mkdir build**
-**cd build**
-2) compile R_Tree scripts using CMake:
-**cmake ..**
-**make**
-then you get a R-Tree.*.os file in build folder which you can import in python
-*visualisation
-![visulisation](https://github.com/GlebPlakhtii/aaf-labs-2021/blob/master/plakhtii_fi-92_shevtsova_fi-92/visualisation.jpg)
-**to create a new rect you shold left mouse click to start drawing and left left click to finish**
+* compilation
+to compile R-Tree as python library you shoukd **for Linux**:  
+1) crate directory **build** in R_tree_to_compile folder  
+**mkdir build**  
+**cd build**  
+2) compile R_Tree scripts using CMake:   
+**cmake ..**  
+**make**  
+then you get a R-Tree.\*.os file in build folder which you can import in python  
+* visualisation
+![visulisation](https://github.com/GlebPlakhtii/aaf-labs-2021/blob/master/plakhtii_fi-92_shevtsova_fi-92/visualisation.jpg)  
+**to create a new rect you shold left mouse click to start drawing and left left click to finish**  
 
 
 
