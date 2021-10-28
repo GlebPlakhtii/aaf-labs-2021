@@ -40,7 +40,7 @@ void R_Tree::test()
 	cout << root->rect << endl;
 	cout << root->children[0]->rect << endl;
 	cout << root->children[0]->data[0] << endl;
-	
+
 
 
 
@@ -58,7 +58,7 @@ void R_Tree::_search(Rect rect, Node* T, vector<Rect>& result)
 		}
 	}
 	else {
-		for(int i = 0;i<T->data.size();i++)
+		for (int i = 0; i < T->data.size(); i++)
 			if (Rect::is_overlap(T->data[i], rect))
 				result.push_back(T->data[i]);
 	}
@@ -70,7 +70,7 @@ void R_Tree::_insert(Rect rect)
 	Node* leaf_to_insert = _choose_leaf(rect);
 	if (!leaf_to_insert->is_full()) {
 		leaf_to_insert->insert(rect);
-		R_Tree::_adjust_tree(leaf_to_insert,nullptr);
+		R_Tree::_adjust_tree(leaf_to_insert, nullptr);
 	}
 	else {
 		leaf_to_insert->insert(rect);
@@ -83,10 +83,10 @@ void R_Tree::_insert(Rect rect)
 		for (int i = 0; i < L2->data.size(); i++) {
 			cout << "L2: " << L2->data[i] << endl;
 		}*/
-		R_Tree::_adjust_tree(L1,L2);
+		R_Tree::_adjust_tree(L1, L2);
 
 	}
-	
+
 
 }
 
@@ -97,7 +97,7 @@ R_Tree::Node* R_Tree::_choose_leaf(Rect rect)
 	while (true) {
 		if (N->is_leaf)
 			return N;
-		else 
+		else
 			N = R_Tree::_choose_subtree(N, rect);
 	}
 	return N;
@@ -109,8 +109,8 @@ void R_Tree::_adjust_tree(Node* L1, Node* L2)
 	Node* N = L1;
 	Node* NN = L2;
 
-	
-	
+
+
 	while (true) {
 
 
@@ -122,6 +122,7 @@ void R_Tree::_adjust_tree(Node* L1, Node* L2)
 			if ((N->parent->children.size() + 2 <= Max_entries)) {
 				N->parent->children.push_back(N);
 				N->parent->children.push_back(NN);
+				NN = nullptr;
 				N = N->parent;
 			}
 			else
@@ -148,7 +149,7 @@ void R_Tree::_adjust_tree(Node* L1, Node* L2)
 
 	}
 
-	
+
 
 
 
@@ -175,7 +176,7 @@ R_Tree::Node* R_Tree::_choose_subtree(Node* N, Rect rect)
 void R_Tree::_delete(Rect rect)
 {
 	Node* leaf = nullptr;
-	R_Tree::_find_leaf(this->root,rect, leaf);
+	R_Tree::_find_leaf(this->root, rect, leaf);
 	if (leaf == nullptr) {
 		throw exception("The elemrnt not exist");
 	}
@@ -188,8 +189,8 @@ void R_Tree::_delete(Rect rect)
 R_Tree::Node** R_Tree::_split_node(Node* N)
 {
 
-	Node** result = new Node* [2];
-	
+	Node** result = new Node * [2];
+
 	if (!N->is_leaf) {
 		Node** seeds = R_Tree::_pick_seeds(N->children);
 		vector<Node*> G1;
@@ -212,8 +213,8 @@ R_Tree::Node** R_Tree::_split_node(Node* N)
 				R_Tree::_pick_next(N->children, G1, G2);
 			}
 		}
-		
-		if(N->parent != nullptr)
+
+		if (N->parent != nullptr)
 			N->parent->children.erase(remove(N->parent->children.begin(), N->parent->children.end(), N));
 		result[0] = new R_Tree::Node(false, false);
 		result[0]->children = G1;
@@ -265,7 +266,7 @@ R_Tree::Node** R_Tree::_split_node(Node* N)
 			}
 
 		}
-		if(N->parent != nullptr)
+		if (N->parent != nullptr)
 			N->parent->children.erase(remove(N->parent->children.begin(), N->parent->children.end(), N));
 
 		//for (int i = 0; i < G1.size(); i++) {
@@ -274,7 +275,7 @@ R_Tree::Node** R_Tree::_split_node(Node* N)
 		//for (int i = 0; i < G2.size(); i++) {
 		//	cout << "G2 " << i << ' ' << G2[i] << endl;
 		//}
-		
+
 
 		result[0] = new R_Tree::Node(false, true);
 		result[0]->data = G1;
@@ -288,7 +289,7 @@ R_Tree::Node** R_Tree::_split_node(Node* N)
 
 	}
 	return result;
-	
+
 
 }
 
@@ -305,7 +306,7 @@ void R_Tree::_find_leaf(Node* N, Rect rect, Node* result)
 	else {
 		for (int i = 0; i < N->children.size(); i++) {
 			if (Rect::is_overlap(N->children[i]->rect, rect))
-				_find_leaf(N->children[i], rect,result);
+				_find_leaf(N->children[i], rect, result);
 		}
 	}
 }
@@ -415,7 +416,7 @@ void R_Tree::Node::_print_tree(string t, bool last)
 	cout << rect << endl;
 	if (is_leaf) {
 		for (int i = 0; i < data.size(); i++)
-			cout <<t<< "|-" << data[i] << endl;
+			cout << t << "|-" << data[i] << endl;
 	}
 	else {
 		t += " ";
@@ -432,7 +433,7 @@ void R_Tree::Node::height(int& res)
 	if (is_leaf)
 		return;
 	children[0]->height(res);
-	
+
 }
 
 Rect* R_Tree::_pick_seeds_leaf(vector<Rect> data)
@@ -501,7 +502,7 @@ void R_Tree::_pick_next_leaf(vector<Rect>& R, vector<Rect>& S1, vector<Rect>& S2
 	double max_area_dif = -1;
 	vector<Rect>* min_area = &S1;
 	Rect node_to_instr = R[0];
-	
+
 	for (int i = 0; i < R.size(); i++) {
 		double S1_area = _resulting_area(S1, R[i]);
 		double S2_area = _resulting_area(S2, R[i]);
@@ -514,7 +515,7 @@ void R_Tree::_pick_next_leaf(vector<Rect>& R, vector<Rect>& S1, vector<Rect>& S2
 				min_area = &S2;
 		}
 	}
-	R.erase(remove(R.begin(),R.end(),node_to_instr));
+	R.erase(remove(R.begin(), R.end(), node_to_instr));
 	min_area->push_back(node_to_instr);
 
 
@@ -569,5 +570,5 @@ double R_Tree::_area(vector<Node*> N)
 
 
 
-	
+
 
