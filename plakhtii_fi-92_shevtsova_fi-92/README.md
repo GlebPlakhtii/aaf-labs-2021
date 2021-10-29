@@ -30,7 +30,9 @@ to compile R-Tree as python library you shoukd **for Linux**:
 then you get a R-Tree.\*.os file in build folder which you can import in python  
 ### visualization
 ![visulisation](https://github.com/GlebPlakhtii/aaf-labs-2021/blob/master/plakhtii_fi-92_shevtsova_fi-92/visualisation.jpg)  
-> **to create a new rect you shold left mouse click to start drawing and left left click to finish**  
+* **to create a new rect you shold left mouse click to start drawing and left left click to finish**  
+* **to change inset/search click S key**
+
 
 
 

@@ -2,6 +2,7 @@
 #include <iostream>
 #include <list>
 #include <vector>
+#include <pybind11/stl.h>
 
 
 using namespace std;

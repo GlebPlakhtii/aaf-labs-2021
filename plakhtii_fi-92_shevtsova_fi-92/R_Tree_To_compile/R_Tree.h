@@ -48,7 +48,7 @@ private:
 	
 
 	Node* root;
-	static const int Max_entries = 5;
+	static const int Max_entries = 4;
 	static const int Min_entries = 2;
 
 	void _search(Rect rect, Node* T, vector<Rect>& result);

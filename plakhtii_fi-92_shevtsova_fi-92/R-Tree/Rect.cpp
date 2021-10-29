@@ -23,10 +23,7 @@ Rect::Rect()
 
 bool Rect::is_overlap(Rect E, Rect S)
 {
-	return (E.lt.x >= S.lt.x && E.lt.x <= S.rb.x && E.lt.y >= S.lt.y && E.lt.y <= S.rb.y) ||
-		(E.rb.x >= S.lt.x && E.rb.x <= S.rb.x && E.rb.y >= S.lt.y && E.rb.y <= S.rb.y) ||
-		(E.lt.x >= S.lt.x && E.lt.x <= S.rb.x && E.rb.y >= S.lt.y && E.rb.y <= S.rb.y) ||
-		(E.rb.x >= S.lt.x && E.rb.x <= S.rb.x && E.lt.y >= S.lt.y && E.lt.y <= S.rb.y);
+	return !(E.lt.x>S.rb.x || E.rb.x > S.lt.x || E.lt.y>S.rb.y || E.rb.y > S.lt.y) ;
 }
 
 double Rect::area() {

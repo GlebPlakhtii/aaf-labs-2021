@@ -407,19 +407,24 @@ void R_Tree::Node::_print_tree(string t, bool last)
 	cout << t;
 	if (last) {
 		cout << "\\-";
-		t += ' ';
+		t += "  ";
 	}
 	else {
 		cout << "|-";
-		t += "| ";
+		t += "|  ";
 	}
 	cout << rect << endl;
 	if (is_leaf) {
 		for (int i = 0; i < data.size(); i++)
-			cout << t << "|-" << data[i] << endl;
+            if(i==data.size()-1) {
+                t += ' ';
+                cout << t << "\\-" << data[i] << endl;
+            }
+            else
+			    cout << t << "|-" << data[i] << endl;
 	}
 	else {
-		t += " ";
+		t += "  ";
 		for (int i = 0; i < children.size(); i++)
 			children[i]->_print_tree(t, i == children.size() - 1);
 
