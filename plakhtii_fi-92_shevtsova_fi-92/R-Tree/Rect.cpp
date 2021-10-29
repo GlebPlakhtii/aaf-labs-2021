@@ -23,7 +23,7 @@ Rect::Rect()
 
 bool Rect::is_overlap(Rect E, Rect S)
 {
-	return !(E.lt.x>S.rb.x || E.rb.x > S.lt.x || E.lt.y>S.rb.y || E.rb.y > S.lt.y) ;
+	return !(E.lt.x>S.rb.x || S.lt.x>E.rb.x || E.lt.y>S.rb.y|| S.lt.y>E.rb.y);
 }
 
 double Rect::area() {
@@ -97,4 +97,7 @@ bool Rect::Point::operator==(const Point& rhs)
 ostream& operator<<(ostream& os, const Rect& rct)
 {
 	return os << "((" << rct.lt.x << ", " << rct.lt.y << "), (" << rct.rb.x << ", " << rct.rb.y << "))";
+}
+string Rect::to_string(){
+    return "((" + std::to_string(lt.x) + ", " + std::to_string(lt.y)  + "), (" + std::to_string(rb.x)  + ", " + std::to_string(rb.y) + "))";
 }

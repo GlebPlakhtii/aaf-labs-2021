@@ -177,9 +177,9 @@ void R_Tree::_delete(Rect rect)
 {
 	Node* leaf = nullptr;
 	R_Tree::_find_leaf(this->root, rect, leaf);
-	if (leaf == nullptr) {
-		throw exception("The elemrnt not exist");
-	}
+//	if (leaf == nullptr) {
+//		throw exception("The elemrnt not exist");
+//	}
 	leaf->data.erase(remove(leaf->data.begin(), leaf->data.end(), rect));
 	R_Tree::_condense_tree(leaf);
 	/*if the root has only one child => make the child the new root*/
@@ -407,19 +407,24 @@ void R_Tree::Node::_print_tree(string t, bool last)
 	cout << t;
 	if (last) {
 		cout << "\\-";
-		t += ' ';
+		t += "  ";
 	}
 	else {
 		cout << "|-";
-		t += "| ";
+		t += "|  ";
 	}
 	cout << rect << endl;
 	if (is_leaf) {
 		for (int i = 0; i < data.size(); i++)
-			cout << t << "|-" << data[i] << endl;
+            if(i==data.size()-1) {
+                t += ' ';
+                cout << t << "\\-" << data[i] << endl;
+            }
+            else
+			    cout << t << "|-" << data[i] << endl;
 	}
 	else {
-		t += " ";
+		t += "  ";
 		for (int i = 0; i < children.size(); i++)
 			children[i]->_print_tree(t, i == children.size() - 1);
 
@@ -568,7 +573,27 @@ double R_Tree::_area(vector<Node*> N)
 }
 
 
+string R_Tree::to_string(){
+    map<Node*, int> m = {{root,0}};
+    string res = "";
+    R_Tree::node_to_string(res,root,m);
+    return  res;
+}
 
+void R_Tree::node_to_string(string &s, Node *N, map<Node*,int>& m) {
+    int level = m[N->parent];
+    m[N] = level+1;
+    s+= std::to_string(level)+' '+N->rect.to_string()+"\n";
 
+    if(N->is_leaf) {
+        level +=1;
+        for (int i = 0; i < N->data.size(); i++)
+            s+=std::to_string(level)+' '+N->data[i].to_string()+"\n";
+    }
+    else{
+        for (int i = 0; i < N->children.size(); i++)
+            R_Tree::node_to_string(s,N->children[i],m);
 
+    }
+}
 

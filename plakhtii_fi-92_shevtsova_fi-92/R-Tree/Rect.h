@@ -2,37 +2,47 @@
 #include <iostream>
 #include <list>
 #include <vector>
+#include <pybind11/stl.h>
+
 
 using namespace std;
 class Rect
 {
+    friend class R_Tree;
 private:
-	class Point {
-	public:
-		double x;
-		double y;
-		Point(double x, double y);
-		Point();
-		bool operator==(const Point& rhs);
+    class Point {
+        friend class R_Tree;
+    public:
+        double x;
+        double y;
+        Point(double x, double y);
+        Point();
+        bool operator==(const Point& rhs);
 
-	};
-	Point lt;
-	Point rb;
-
+    };
 public:
-	Rect(Point lt, Point rb);
-	Rect(double ltx, double lty, double rbx, double rby);
-	Rect();
-	static bool is_overlap(Rect E, Rect S);
-	double area();
-	static double area_to_increase(Rect E, Rect S);
-	static Rect marged_rect(Rect E, Rect S);
-	static double Area(vector<Rect> R);
-	bool operator==(const Rect& rhs);
-	friend ostream& operator<<(ostream& os, const Rect& rct);
+    Rect(Point lt, Point rb);
+    Rect(double ltx, double lty, double rbx, double rby);
+    Rect();
+    bool operator==(const Rect& rhs);
+    friend ostream& operator<<(ostream& os, const Rect& rct);
+    Point get_lt();
+    Point get_rb();
+    string to_string();
 
-	Point get_lt();
-	Point get_rb();
+private:
+
+
+    Point lt;
+    Point rb;
+    static bool is_overlap(Rect E, Rect S);
+    double area();
+    static double area_to_increase(Rect E, Rect S);
+    static Rect marged_rect(Rect E, Rect S);
+    static double Area(vector<Rect> R);
+
+
+
 
 
 
