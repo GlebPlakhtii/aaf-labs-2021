@@ -1,4 +1,4 @@
-from R_Tree_to_compile.R_Tree import *
+from R_Tree_To_compile.R_Tree import *
 import pygame as pg
 import random
 import colorsys
