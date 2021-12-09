@@ -418,10 +418,16 @@ void R_Tree::Node::_print_tree(string t, bool last)
 		for (int i = 0; i < data.size(); i++)
             if(i==data.size()-1) {
                 t += ' ';
-                cout << t << "\\-" << data[i] << endl;
+                if (data[i].get_lt() == data[i].get_rb())
+                cout << t << "\\-" << Rect::to_str(data[i].get_lt())<< endl;
+                else
+                    cout<< t << "\\-" << data[i] <<endl;
             }
             else
-			    cout << t << "|-" << data[i] << endl;
+            if (data[i].get_lt() == data[i].get_rb())
+                cout << t << "|-" << Rect::to_str(data[i].get_lt())<< endl;
+            else
+                cout<< t << "|-" << data[i] <<endl;
 	}
 	else {
 		t += "  ";
@@ -597,3 +603,64 @@ void R_Tree::node_to_string(string &s, Node *N, map<Node*,int>& m) {
     }
 }
 
+void R_Tree::_contain(Node* T, Rect R,vector<Rect>& result){
+    if (!T->is_leaf) {
+        for (int i = 0; i < T->children.size(); i++) {
+            if (Rect::is_overlap(T->children[i]->rect, R))
+                R_Tree::_contain(T->children[i],R,result);
+
+        }
+    }
+    else {
+        for (int i = 0; i < T->data.size(); i++)
+            if (T->data[i]==R)
+                result.push_back(R);
+    }
+
+}
+bool R_Tree::is_contain(Rect R){
+    vector<Rect> res;
+    _contain(root,R,res);
+    return res.size() >= 1;
+}
+Rect R_Tree::get_root(){
+    return this->root->rect;
+}
+
+void R_Tree::_nn(Node* T,Rect R, vector<Rect>& res,double* best){
+    if (!T->is_leaf) {
+        for (int i = 0; i < T->children.size(); i++) {
+            R_Tree::_nn(T->children[i],R,res,best);
+
+        }
+    }
+    else {
+        for (int i = 0; i < T->data.size(); i++) {
+            auto lt = T->data[i].get_lt();
+            if (*best >= Rect::distance(lt,R.get_lt())) {
+                res.push_back(T->data[i]);
+                *best = Rect::distance(lt, R.get_lt());
+            }
+
+        }
+    }
+
+}
+vector<Rect> R_Tree::nn(Rect R){
+    vector<Rect> res;
+    vector<Rect> result;
+    double *best = new double(99999);
+    R_Tree::_nn(root,R,res,best);
+    for(int i = res.size()-1;i>=0; i--){
+        if (Rect::distance(R.get_lt(), res[i].get_lt()) == *best){
+            result.push_back(res[i]);
+        }
+        else
+            break;
+
+
+    }
+    return result;
+
+
+}

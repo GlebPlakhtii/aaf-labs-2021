@@ -21,6 +21,9 @@ public:
 	int get_height();
 	void test();
     string to_string();
+    bool is_contain(Rect R);
+    Rect get_root();
+    vector<Rect> nn(Rect R);
 
     class Node {
     public:
@@ -37,6 +40,8 @@ public:
         void _print_tree(string t, bool last);
         void height(int& res);
 
+
+
     };
 
 
@@ -48,8 +53,8 @@ private:
 	
 
 	Node* root;
-	static const int Max_entries = 4;
-	static const int Min_entries = 2;
+	static const int Max_entries = 2;
+	static const int Min_entries = 1;
 
 	void _search(Rect rect, Node* T, vector<Rect>& result);
 	void _insert(Rect rect);
@@ -68,7 +73,9 @@ private:
 	double _resulting_area(vector<Node*> G, Node* N);
 	double _resulting_area(vector<Rect> S, Rect N);
 	double _area(vector<Node*> N);
+    void _contain(Node* T, Rect R,vector<Rect>& result);
     static void node_to_string(string &s, Node *N, map<Node*,int>& m);
+    void _nn(Node* T,Rect R, vector<Rect>& res,double* best);
 
 
 

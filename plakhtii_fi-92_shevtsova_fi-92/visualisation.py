@@ -11,7 +11,7 @@ def draw_tree(t: R_Tree,screen):
         i.split()[2].replace('(', '').replace(')', '').replace(',', '')),
                                                    float(i.split()[3].replace('(', '').replace(',', '')), float(
             i.split()[4].replace('(', '').replace(')', '').replace(',', ''))]} for i in ls]
-    l = max(6, nodes[-1]['level'])
+    l = max(10, nodes[-1]['level'])
     max_level = nodes[-1]['level']
     nodes = sorted(nodes, key=lambda a: a['level'])
     indent = 0

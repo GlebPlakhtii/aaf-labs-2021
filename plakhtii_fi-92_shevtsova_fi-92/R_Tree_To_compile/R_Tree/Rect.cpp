@@ -99,5 +99,12 @@ ostream& operator<<(ostream& os, const Rect& rct)
 	return os << "((" << rct.lt.x << ", " << rct.lt.y << "), (" << rct.rb.x << ", " << rct.rb.y << "))";
 }
 string Rect::to_string(){
-    return "((" + std::to_string(lt.x) + ", " + std::to_string(lt.y)  + "), (" + std::to_string(rb.x)  + ", " + std::to_string(rb.y) + "))";
+    return "((" + std::to_string((int)lt.x) + ", " + std::to_string((int)lt.y)  + "), (" + std::to_string((int)rb.x)  + ", " + std::to_string((int)rb.y) + "))";
+}
+double Rect::distance(Point p1, Point p2) {
+    return sqrt(pow(p1.x-p2.x,2)+pow(p1.y-p2.y,2));
+
+}
+string Rect::to_str(Point p){
+    return "(" + std::to_string((int)p.x) + ", " + std::to_string((int)p.y)  + ")";
 }

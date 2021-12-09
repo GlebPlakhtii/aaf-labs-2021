@@ -2,7 +2,8 @@
 #include <iostream>
 #include <list>
 #include <vector>
-
+#include <pybind11/stl.h>
+#include <cmath>
 
 
 using namespace std;
@@ -19,6 +20,7 @@ private:
         Point();
         bool operator==(const Point& rhs);
 
+
     };
 public:
     Rect(Point lt, Point rb);
@@ -29,6 +31,8 @@ public:
     Point get_lt();
     Point get_rb();
     string to_string();
+    static double distance(Point p1, Point p2);
+    static string to_str(Point p);
 
 private:
 
@@ -40,6 +44,7 @@ private:
     static double area_to_increase(Rect E, Rect S);
     static Rect marged_rect(Rect E, Rect S);
     static double Area(vector<Rect> R);
+
 
 
 
