@@ -417,11 +417,12 @@ void R_Tree::Node::_print_tree(string t, bool last)
 	if (is_leaf) {
 		for (int i = 0; i < data.size(); i++)
             if(i==data.size()-1) {
-                t += ' ';
+
                 if (data[i].get_lt() == data[i].get_rb())
                 cout << t << "\\-" << Rect::to_str(data[i].get_lt())<< endl;
                 else
                     cout<< t << "\\-" << data[i] <<endl;
+                t += ' ';
             }
             else
             if (data[i].get_lt() == data[i].get_rb())

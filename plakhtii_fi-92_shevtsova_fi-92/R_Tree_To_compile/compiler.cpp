@@ -8,6 +8,10 @@ namespace py = pybind11;
 PYBIND11_MODULE(R_Tree, m) {
 py::class_<Rect>(m, "Rect")
 .def(py::init<float,float,float,float>(), py::arg("ltx"),py::arg("lty"),py::arg("rbx"),py::arg("rby"))
+.def("get_ltx", &Rect::get_ltx, "get ltx")
+.def("get_lty", &Rect::get_lty, "get lty")
+.def("get_rbx", &Rect::get_rbx, "get rbx")
+.def("get_rby", &Rect::get_rby, "get rby")
 .def("__repr__", &Rect::to_string);
 
 py::class_<R_Tree>(m, "R_Tree")

@@ -96,9 +96,14 @@ bool Rect::Point::operator==(const Point& rhs)
 
 ostream& operator<<(ostream& os, const Rect& rct)
 {
+    if(rct.lt.x == rct.rb.x && rct.lt.y == rct.rb.y)
+        return os << "(" << rct.lt.x << ", " << rct.lt.y << ")";
 	return os << "((" << rct.lt.x << ", " << rct.lt.y << "), (" << rct.rb.x << ", " << rct.rb.y << "))";
 }
 string Rect::to_string(){
+    if(lt.x == rb.x && lt.y == rb.y)
+        return "(" + std::to_string((int)lt.x) + ", " + std::to_string((int)lt.y)  + ")";
+
     return "((" + std::to_string((int)lt.x) + ", " + std::to_string((int)lt.y)  + "), (" + std::to_string((int)rb.x)  + ", " + std::to_string((int)rb.y) + "))";
 }
 double Rect::distance(Point p1, Point p2) {
@@ -107,4 +112,16 @@ double Rect::distance(Point p1, Point p2) {
 }
 string Rect::to_str(Point p){
     return "(" + std::to_string((int)p.x) + ", " + std::to_string((int)p.y)  + ")";
+}
+double Rect::get_ltx(){
+    return this->lt.x;
+}
+double Rect::get_lty(){
+    return this->lt.y;
+}
+double Rect::get_rbx(){
+    return this->rb.x;
+}
+double Rect::get_rby(){
+    return this->rb.y;
 }

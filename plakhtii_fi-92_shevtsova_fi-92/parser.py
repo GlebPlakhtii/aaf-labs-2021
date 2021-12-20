@@ -64,7 +64,7 @@ class Parser:
             x = int(res.group(2))
             y = int(res.group(3))
             if self.database.contain(name):
-                self.database[name].insert(x,y)
+                self.database[name].insert(x, y)
                 print("Point ({}, {}) has been added to {}".format(x, y, name))
             else:
                 print("Table: {} not exist!".format(name))
@@ -97,7 +97,7 @@ class Parser:
             x = int(res.group(2))
             y = int(res.group(3))
             if self.database.contain(name):
-                print(self.database[name].is_contain(x,y))
+                print(self.database[name].is_contain(x, y))
             else:
                 print("Table: {} not exist!".format(name))
                 return
@@ -109,6 +109,7 @@ class Parser:
 
     def search(self, properties):
         regex = r'^(\w+)\s+(\w+)(.*);\s*$'
+        empty_search_regex = r'^(\w+)\s*;\s*$'
         res = re.match(regex, properties)
         if res:
             name = res.group(1)
@@ -121,9 +122,9 @@ class Parser:
                     if command.upper() == "INSIDE":
                         self.inside(parameters, name)
                     elif command.upper() == "LEFT_OF":
-                        self.left_of(parameters,name)
+                        self.left_of(parameters, name)
                     elif command.upper() == "NN":
-                        self.nn(parameters,name)
+                        self.nn(parameters, name)
                 else:
                     print("Wrong command!")
                     return
@@ -131,8 +132,17 @@ class Parser:
                 print("Table: {} not exist!".format(name))
                 return
         else:
-            print("Wrong command!")
-            return
+            res = re.match(empty_search_regex, properties)
+            if res:
+                name = res.group(1)
+                if self.database.contain(name):
+                    self.database[name].get_all()
+                else:
+                    print(f"Table: {name} not exist!")
+                    return
+            else:
+                print("Wrong command!")
+                return
 
     def inside(self, parameters, name):
         regex = r'^\s*\(\s*(-?\d+)\s*,\s*(-?\d+)\s*\)\s*,\s*\(\s*(-?\d+)\s*,\s*(-?\d+)\s*\)\s*'
@@ -146,7 +156,7 @@ class Parser:
         else:
             print("Wrong parameters!")
 
-    def left_of(self, parameters,name):
+    def left_of(self, parameters, name):
         res = re.match(r'^\s*(-?\d+)\s*$', parameters)
         if res:
             x = int(res.group(1))
@@ -155,13 +165,13 @@ class Parser:
             print("Wrong parameters!")
             return
 
-    def nn(self, parameters,name):
+    def nn(self, parameters, name):
         regex = r'^\s*\(\s*(-?\d+)\s*,\s*(-?\d+)\s*\)\s*'
-        res = re.match(regex,parameters)
+        res = re.match(regex, parameters)
         if res:
             x = int(res.group(1))
             y = int(res.group(2))
-            self.database[name].nn(x,y)
+            self.database[name].nn(x, y)
 
         else:
             print("Wrong parameters!")
@@ -174,5 +184,3 @@ try:
 
 except Exception as ex:
     print(ex)
-
-

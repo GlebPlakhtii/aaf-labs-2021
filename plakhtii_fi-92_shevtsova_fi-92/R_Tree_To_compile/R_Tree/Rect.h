@@ -33,6 +33,10 @@ public:
     string to_string();
     static double distance(Point p1, Point p2);
     static string to_str(Point p);
+    double get_ltx();
+    double get_lty();
+    double get_rbx();
+    double get_rby();
 
 private:
 

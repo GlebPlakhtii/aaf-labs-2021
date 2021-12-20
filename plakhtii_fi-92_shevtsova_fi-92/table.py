@@ -21,14 +21,21 @@ class Table:
         self.tree.print_tree()
 
     def left_of(self, x):
-        root = str(self.tree.get_root())
-        ltx = float(root.split(',')[0].replace('((', ''))
-        lty = float(root.split(')')[0].split()[-1])
-        rby = float(root.split()[-1].replace('))', ''))
+        root = self.tree.get_root()
+        ltx = root.get_ltx()
+        lty = root.get_lty()
+        rby = root.get_rby()
+        if ltx >= x:
+            print("Wrong input: ltx of root >= x!")
+            return
 
         for n in self.tree.search(Rect(ltx, lty, x, rby)):
             print(n)
 
     def nn(self, x, y):
         for n in self.tree.nn(Rect(x, y, x, y)):
+            print(n)
+
+    def get_all(self):
+        for n in self.tree.search(self.tree.get_root()):
             print(n)
