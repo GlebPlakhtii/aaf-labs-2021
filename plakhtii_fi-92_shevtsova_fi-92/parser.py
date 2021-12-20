@@ -8,7 +8,7 @@
 #             | LEFT_OF x
 #             | NN (x, y)
 import re
-from R_Tree_To_compile.built.R_Tree import R_Tree, Rect
+from R_Tree_To_compile.build.R_Tree import R_Tree, Rect
 
 from database import Database
 
